@@ -37,12 +37,12 @@ INSERT INTO users (username, email, password) VALUES ('johnsmith', 'js@test.com'
 -----------------------------------------------------*/
 CREATE TABLE user_roles(
     user_id INTEGER,
-    role_id INTEGER
+    role_id INTEGER,
     -- constraint name follows convention fk_<source_table>_<target_table>_<column>
     CONSTRAINT fk_user_roles_users_user_id FOREIGN KEY (user_id) 
-        REFERENCES users (user_id) ON DELETE CASCADE;
+        REFERENCES users (user_id) ON DELETE CASCADE,
     CONSTRAINT fk_user_roles_roles_role_id FOREIGN KEY (role_id)
-        REFERENCES roles (role_id) ON DELETE CASCADE;
+        REFERENCES roles (role_id) ON DELETE CASCADE
 );
 
 

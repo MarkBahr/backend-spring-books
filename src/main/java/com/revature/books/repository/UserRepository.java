@@ -3,7 +3,8 @@ package com.revature.books.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.revature.books.models.User;
+import com.revature.books.model.User;
+
 import java.util.Optional;
 
 // This interface handles database persistence for Users using JPA/Hibernate

@@ -1,6 +1,6 @@
-package com.revature.books.models;
+package com.revature.books.model;
 
-// Set of contants for roles
+// Set of constants for roles
 public enum ERole {
     ROLE_USER,
     ROLE_MODERATOR,

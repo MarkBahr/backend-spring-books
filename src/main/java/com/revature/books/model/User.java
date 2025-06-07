@@ -1,17 +1,19 @@
-package com.revature.books.models;
+package com.revature.books.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
-@Data // Takes care of equals() and hashCode for this class
+@Data // Takes care of equals() and hashCode 1 setter & 1 getter for this class
 @Entity // Maps this java entity to the users table in the database
+@NoArgsConstructor
 @Table(name = "users", 
     // Specifies that unique constraints exists in the database
     uniqueConstraints = {
@@ -35,27 +37,28 @@ public class User {
     private String email;
 
     @NotBlank
-    @Size(max = 100)
+    @Size(max = 120)
     private String password;
 
-    
-    @ManyToMany(fetch = FetchType.LAZY)
-    // The name of the joining table is "user_roles"
-    @JoinTable(  name = "user_roles",
-        // Foreign key in the user_roles table for users is user_id
-        joinColumns = @JoinColumn(name = "user_id"),
-        // Foreign key in the user_roles table for roles is role_id
-        inverseJoinColumns = @JoinColumn(name = "role_id"))
-    // Set of Role entities associated with a User (as seen in Enum model)
-    private Set<Role> roles = new HashSet<>();
+    // Many to many relationship between roles and users
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    // Join with roles on role_id
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    @JsonBackReference
+    @ToString.Exclude
+    private Role role;
 
-    public User() {
-    }
-
+    // Constructor for user signup
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    // Constructor for login
+    public User(String username, String email) {
+        this.username = username;
+        this.email = email;
     }
 
     public Long getUserId() {
@@ -88,13 +91,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 }
