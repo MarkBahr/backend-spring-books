@@ -2,26 +2,38 @@
 
 ## Project Description
 
-Backend for books inventory tracker app using Java, JWT and Spring Security for auth and PostgreSQL
+Backend for books inventory tracker app using Java, JWT and Spring Security for auth and PostgreSQL as database.
 
 ## Tools & Technologies
 
 ## User Stories
 
+### Summary
+
+- Sign up
+- Sign in
+- Create book
+- Update book
+- Delete book
+- Get all books
+- Get book by id
+
 ### User Story 1: Register User
 
 registerUser()
 
-- Endpoint: /api/users/register
+- Endpoint: /api/auth/public/signup
 - Method: POST
 - Data:
 
+Example:
+
 ```json
 {
-  "firstName": "Joseph",
+  "firstName": "Joe",
   "lastName": "Smith",
   "email": "js@testmail.com",
-  "password": ""
+  "password": "password"
 }
 ```
 
@@ -29,15 +41,17 @@ Upon submission, you get a JWT token in response
 
 ### User Story 2: User Login
 
-loginUser
+authenticateUser()
 
-- Endpoint: POST request to /api/users/login
+- Endpoint: POST request to /api/auth/public/signin
 - Json request body
+
+Example:
 
 ```json
 {
-  "email": "jo@testmail.com",
-  "password": ""
+  "email": "js@testmail.com",
+  "password": "password"
 }
 ```
 
