@@ -74,12 +74,12 @@ VALUES
         "cost": 5.25
     },
     {
-        "bookId": 3,
-        "title": "The Lion, the Witch and the Wardrobe",
+        "title": "Voyage of the Dawn Treader",
         "author": "C.S. Lewis",
-        "description": "Children enter a magical land and fight evil.",
+        "description": "Lucy & Edmund help Prince Caspian on a sea voyage.",
         "price": 9.99,
-        "cost": 4.8
+        "cost": 4.8,
+        "sellerUser": "testuser"
     }
 
 -- Define additional books if needed
@@ -93,3 +93,25 @@ books = [
     ("The Good Samaritan", "Nick Butterworth", "Lesson in kindness and compassion.", 6.99, 3.50),
 ]
 
+-- Finidng Constraints
+SELECT
+    conname AS constraint_name,
+    conrelid::regclass AS table_name,
+    a.attname AS column_name,
+    confrelid::regclass AS referenced_table
+FROM pg_constraint
+JOIN pg_attribute a ON a.attnum = ANY (conkey) AND a.attrelid = conrelid
+WHERE confrelid::regclass::text IN ('books');
+
+-- Finding sequences
+SELECT pg_get_serial_sequence('your_table_name', 'your_column_name'); 
+
+-- such as
+SELECT pg_get_serial_sequence('books', 'book_id');
+
+-- Find the current value of the sequence
+SELECT currval('sequence_name');
+
+-- How to reset the sequence current value
+ALTER SEQUENCE sequence_name RESTART WITH new_value;
+ALTER SEQUENCE public.books_book_id_seq RESTART WITH 6;
