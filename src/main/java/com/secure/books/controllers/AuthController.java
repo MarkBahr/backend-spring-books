@@ -7,9 +7,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,8 @@ import com.secure.books.security.request.LoginRequest;
 import com.secure.books.security.request.SignupRequest;
 import com.secure.books.security.response.LoginResponse;
 import com.secure.books.security.response.MessageResponse;
+import com.secure.books.security.response.UserInfoResponse;
+import com.secure.books.services.UserService;
 
 import jakarta.validation.Valid;
 
@@ -34,6 +38,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 /**
  * Class responsible for handling user authentication and authorization.
@@ -57,6 +63,9 @@ public class AuthController {
 
     @Autowired
     PasswordEncoder encoder;
+
+    @Autowired
+    UserService userService;
 
     AuthController(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
@@ -156,5 +165,51 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    /**
+     * Get details about the current user. Works w/o csrf since it's a get request, i.e. not modifying database.
+     * @param userDetails
+     * @return Response Entity containing user details, such as username, email, roles, etc
+     */
+    @GetMapping("/user")
+    public ResponseEntity<?> getUserDetails(@AuthenticationPrincipal UserDetails userDetails) {
+        User user = userService.findByUsername(userDetails.getUsername());
+
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
+        UserInfoResponse response = new UserInfoResponse(
+                user.getUserId(),
+                user.getUserName(),
+                user.getEmail(),
+                user.isAccountNonLocked(),
+                user.isAccountNonExpired(),
+                user.isCredentialsNonExpired(),
+                user.isEnabled(),
+                user.getCredentialsExpiryDate(),
+                user.getAccountExpiryDate(),
+                user.isTwoFactorEnabled(),
+                roles
+        );
+
+        return ResponseEntity.ok().body(response);
+    }
+
+
+    /**
+     * This endpoint returns the username of the current user
+     * @param userDetails
+     * @return username if not null
+     */
+    @GetMapping("username")
+    public ResponseEntity<?> getUsername(@AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails.getUsername();
+        if (username != null) {
+            return ResponseEntity.ok().body(username);
+        } else {
+            return ResponseEntity.ok().body("");
+        }
     }
 }

@@ -8,7 +8,7 @@ CREATE TABLE books (
     description VARCHAR(255),
     price NUMERIC(12, 2),
     cost NUMERIC(12, 2),
-
+    seller_user VARCHAR(30)
 );
 
 -- Add username calumn
@@ -18,12 +18,12 @@ ADD seller_user VARCHAR(30);
 UPDATE books
 set seller_user = 'user1';
 
-
+-- Copy statement for larger list of books
 -- COPY books
 -- FROM 'C:\Users\Public\data\children_books_short.csv'
 -- WITH (FORMAT CSV, HEADER);
 
-
+-- Insert statement for short list of books
 INSERT INTO books (title, author, description, price, cost)
 VALUES
 ('Little House on the Prairie', 'Laura Ingalls Wilder', 'Pioneer life on the American frontier.', 12.99, 6.50);
@@ -43,6 +43,10 @@ VALUES
 INSERT INTO books (title, author, description, price, cost)
 VALUES
 ('The Good Samaritan', 'Nick Butterworth', 'Lesson in kindness and compassion.', 6.99, 3.50);
+
+UPDATE BOOKS
+set seller_user = 'testuser'
+where title = 'The Good Samaritan';
 
 -- Here's some JSON data to use for requests
     -- Create new book

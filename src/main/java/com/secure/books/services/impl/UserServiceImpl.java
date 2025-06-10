@@ -13,6 +13,7 @@ import com.secure.books.repositories.UserRepository;
 import com.secure.books.services.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -66,6 +67,16 @@ public class UserServiceImpl implements UserService {
                 user.getUpdatedDate()
         );
     }
+
+    /**
+     * Find user, if not found, throw exception
+     */
+    @Override
+    public User findByUsername(String username) {
+        Optional<User> user = userRepository.findByUserName(username);
+        return user.orElseThrow(() -> new RuntimeException("User not found with username: " + username));
+    }
+
 
 
 }
