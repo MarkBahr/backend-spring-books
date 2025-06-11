@@ -32,13 +32,13 @@ import com.secure.books.services.UserService;
 
 import jakarta.validation.Valid;
 
-import java.time.LocalDate;
+// import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 
 
 /**
@@ -152,14 +152,14 @@ public class AuthController {
             }
 
             // Set user account properties
-            user.setAccountNonLocked(true);
-            user.setAccountNonExpired(true);
-            user.setCredentialsNonExpired(true);
-            user.setEnabled(true);
-            user.setCredentialsExpiryDate(LocalDate.now().plusYears(1)); // Expires 1 year from now.
-            user.setAccountExpiryDate(LocalDate.now().plusYears(1));
-            user.setTwoFactorEnabled(false);
-            user.setSignUpMethod("email"); // In the future if other signup method is added
+            // user.setAccountNonLocked(true);
+            // user.setAccountNonExpired(true);
+            // user.setCredentialsNonExpired(true);
+            // user.setEnabled(true);
+            // user.setCredentialsExpiryDate(LocalDate.now().plusYears(1)); // Expires 1 year from now.
+            // user.setAccountExpiryDate(LocalDate.now().plusYears(1));
+            // user.setTwoFactorEnabled(false);
+            // user.setSignUpMethod("email"); // In the future if other signup method is added
         }
         user.setRole(role);
         userRepository.save(user);
@@ -184,14 +184,14 @@ public class AuthController {
                 user.getUserId(),
                 user.getUserName(),
                 user.getEmail(),
-                user.isAccountNonLocked(),
-                user.isAccountNonExpired(),
-                user.isCredentialsNonExpired(),
-                user.isEnabled(),
-                user.getCredentialsExpiryDate(),
-                user.getAccountExpiryDate(),
-                user.isTwoFactorEnabled(),
                 roles
+                // user.isAccountNonLocked(),
+                // user.isAccountNonExpired(),
+                // user.isCredentialsNonExpired(),
+                // user.isEnabled(),
+                // user.getCredentialsExpiryDate(),
+                // user.getAccountExpiryDate(),
+                // user.isTwoFactorEnabled(),
         );
 
         return ResponseEntity.ok().body(response);

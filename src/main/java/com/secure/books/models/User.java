@@ -9,11 +9,11 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+// import org.hibernate.annotations.CreationTimestamp;
+// import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+// // import java.time.LocalDate;
+// import java.time.LocalDateTime;
 
 @Data // Takes care of equals() and hashCode 1 setter & 1 getter for this class
 @Entity // Maps this java entity to the users table in the database
@@ -46,17 +46,17 @@ public class User{
     @JsonIgnore
     private String password;
 
-    private boolean accountNonLocked = true;
-    private boolean accountNonExpired = true;
-    private boolean credentialsNonExpired = true;
-    private boolean enabled = true;
+    // private boolean accountNonLocked = true;
+    // private boolean accountNonExpired = true;
+    // private boolean credentialsNonExpired = true;
+    // private boolean enabled = true;
 
-    private LocalDate credentialsExpiryDate;
-    private LocalDate accountExpiryDate;
+    // private LocalDate credentialsExpiryDate;
+    // private LocalDate accountExpiryDate;
 
-    private String twoFactorSecret;
-    private boolean isTwoFactorEnabled = false;
-    private String signUpMethod;
+    // private String twoFactorSecret;
+    // private boolean isTwoFactorEnabled = false;
+    // private String signUpMethod;
 
     // Many to many relationship between roles and users
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
@@ -66,12 +66,12 @@ public class User{
     @ToString.Exclude
     private Role role;
 
-    @CreationTimestamp
-    @Column(updatable = false)
-    private LocalDateTime createdDate;
+    // @CreationTimestamp
+    // @Column(updatable = false)
+    // private LocalDateTime createdDate;
 
-    @UpdateTimestamp
-    private LocalDateTime updatedDate;
+    // @UpdateTimestamp
+    // private LocalDateTime updatedDate;
 
     // Constructor for user signup
     public User(String userName, String email, String password) {

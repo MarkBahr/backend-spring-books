@@ -23,7 +23,7 @@ import com.secure.books.repositories.UserRepository;
 import com.secure.books.security.jwt.AuthEntryPointJwt;
 import com.secure.books.security.jwt.AuthTokenFilter;
 
-import java.time.LocalDate;
+// import java.time.LocalDate;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -101,14 +101,14 @@ public class SecurityConfig {
                 if (!userRepository.existsByUserName("user1")) {
                         User user1 = new User("user1", "user1@example.com",
                                 passwordEncoder.encode("password1"));
-                        user1.setAccountNonLocked(false);
-                        user1.setAccountNonExpired(true);
-                        user1.setCredentialsNonExpired(true);
-                        user1.setEnabled(true);
-                        user1.setCredentialsExpiryDate(LocalDate.now().plusYears(1));
-                        user1.setAccountExpiryDate(LocalDate.now().plusYears(1));
-                        user1.setTwoFactorEnabled(false);
-                        user1.setSignUpMethod("email");
+                        // user1.setAccountNonLocked(false);
+                        // user1.setAccountNonExpired(true);
+                        // user1.setCredentialsNonExpired(true);
+                        // user1.setEnabled(true);
+                        // user1.setCredentialsExpiryDate(LocalDate.now().plusYears(1));
+                        // user1.setAccountExpiryDate(LocalDate.now().plusYears(1));
+                        // user1.setTwoFactorEnabled(false);
+                        // user1.setSignUpMethod("email");
                         user1.setRole(userRole);
                         userRepository.save(user1);
                 }
@@ -116,14 +116,14 @@ public class SecurityConfig {
                 if (!userRepository.existsByUserName("admin")) {
                         User admin = new User("admin", "admin@example.com",
                                 passwordEncoder.encode("adminPass"));
-                        admin.setAccountNonLocked(true);
-                        admin.setAccountNonExpired(true);
-                        admin.setCredentialsNonExpired(true);
-                        admin.setEnabled(true);
-                        admin.setCredentialsExpiryDate(LocalDate.now().plusYears(1));
-                        admin.setAccountExpiryDate(LocalDate.now().plusYears(1));
-                        admin.setTwoFactorEnabled(false);
-                        admin.setSignUpMethod("email");
+                        // admin.setAccountNonLocked(true);
+                        // admin.setAccountNonExpired(true);
+                        // admin.setCredentialsNonExpired(true);
+                        // admin.setEnabled(true);
+                        // admin.setCredentialsExpiryDate(LocalDate.now().plusYears(1));
+                        // admin.setAccountExpiryDate(LocalDate.now().plusYears(1));
+                        // admin.setTwoFactorEnabled(false);
+                        // admin.setSignUpMethod("email");
                         admin.setRole(adminRole);
                         userRepository.save(admin);
                 }

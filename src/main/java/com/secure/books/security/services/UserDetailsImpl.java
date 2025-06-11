@@ -35,12 +35,11 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String username, String email, String password,
-                           boolean is2faEnabled, Collection<? extends GrantedAuthority> authorities) {
+                           Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.is2faEnabled = is2faEnabled;
         this.authorities = authorities;
     }
 
@@ -53,7 +52,6 @@ public class UserDetailsImpl implements UserDetails {
                 user.getUserName(),
                 user.getEmail(),
                 user.getPassword(),
-                user.isTwoFactorEnabled(),
                 List.of(authority) // Wrapping the single authority in a list
         );
     }
@@ -83,29 +81,29 @@ public class UserDetailsImpl implements UserDetails {
         return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+    // @Override
+    // public boolean isAccountNonExpired() {
+    //     return true;
+    // }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+    // @Override
+    // public boolean isAccountNonLocked() {
+    //     return true;
+    // }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+    // @Override
+    // public boolean isCredentialsNonExpired() {
+    //     return true;
+    // }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    // @Override
+    // public boolean isEnabled() {
+    //     return true;
+    // }
 
-    public boolean is2faEnabled() {
-        return is2faEnabled;
-    }
+    // public boolean is2faEnabled() {
+    //     return is2faEnabled;
+    // }
 
     // @Override
     // public boolean equals(Object o) {

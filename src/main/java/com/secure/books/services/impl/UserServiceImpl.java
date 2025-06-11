@@ -1,7 +1,7 @@
 package com.secure.books.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+// import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.secure.books.dtos.UserDTO;
@@ -53,18 +53,18 @@ public class UserServiceImpl implements UserService {
                 user.getUserId(),
                 user.getUserName(),
                 user.getEmail(),
-                user.isAccountNonLocked(),
-                user.isAccountNonExpired(),
-                user.isCredentialsNonExpired(),
-                user.isEnabled(),
-                user.getCredentialsExpiryDate(),
-                user.getAccountExpiryDate(),
-                user.getTwoFactorSecret(),
-                user.isTwoFactorEnabled(),
-                user.getSignUpMethod(),
-                user.getRole(),
-                user.getCreatedDate(),
-                user.getUpdatedDate()
+                user.getRole()
+                // user.isAccountNonLocked(),
+                // user.isAccountNonExpired(),
+                // user.isCredentialsNonExpired(),
+                // user.isEnabled(),
+                // user.getCredentialsExpiryDate(),
+                // user.getAccountExpiryDate(),
+                // user.getTwoFactorSecret(),
+                // user.isTwoFactorEnabled(),
+                // user.getSignUpMethod(),
+                // user.getCreatedDate(),
+                // user.getUpdatedDate()
         );
     }
 
